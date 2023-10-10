@@ -1,29 +1,25 @@
-name: Check workflow
+name: Woking Dirs & Shell 
 on: [push]
-
+defaults:
+  run: 
+    shell: bash
 jobs:
-  runs-shell-commands:
-    runs-on: ubuntu-latest
-    steps:
-      - name: echo a string
-        run: echo "Hello World"
-      - name: Multiline Command
+  display-wd-info:
+     runs-on: ubuntu-latest
+     steps:
+      - name: Display Working Directory & List Files
         run: |
-          node -v
-          npm -v
-  parallel-job-macos:
-    runs-on: macos-latest
-    steps:
-    - name: View SW version
-      run: sw_vers
-  dependent-job:
-    runs-on: windows-latest
-    needs: runs-shell-commands
-    steps:
-    - name: echo a string
-      run: Write-Output "Windows String"
-    - name: Error steps
-      run: doesnotexits
-    
-
-
+          pwd
+          ls -a 
+  display-wd-info-windows:
+      runs-on: windows-latest
+      steps:
+        - name: Display Working Directory & List Files
+          run: |
+            Get-Location
+            dir 
+        - name: Python Shell
+          shell: Python
+          run: |
+            import platform
+            print(platform.processor())
