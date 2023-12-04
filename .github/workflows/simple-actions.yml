@@ -1,14 +1,17 @@
-name: Simple Action
-on: [push]
+name: Super-Linter
+
+on: push
 
 jobs:
-  simple-action:
+  super-lint:
+    name: Lint code base
     runs-on: ubuntu-latest
     steps:
-      - name: Simple JS Action
-        id: greet
-        uses: actions/hello-world-javascript-action@e76147da8e5c81eaf017dede5645551d4b94427b
-        with:
-          who-to-greet: Jayesh
-      - name: Log Greeting Time
-        run: echo "${{ steps.greet.outputs.time }}" 
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run Super-Linter
+        uses: github/super-linter@v4
+        env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
